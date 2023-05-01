@@ -1,14 +1,18 @@
 # Robotics Sensing and Navigation
+These projects examines the actual sensors and mathematical techniques for robotic sensing and navigation with a focus on sensors such as cameras, sonars, and laser scanners. These are used in association with techniques and algorithms for dead reckoning and visual inertial odometry in conjunction with GPS and inertial measurement units. Covers Kalman filters and particle filters as applied to the SLAM problem. A large component of the following projects involves programming in both the ROS and LCM environments with real field robotics sensor data sets. They incorporate real field sensors and platforms.
 
 ## Project 1 : Analysis of Stationary and Moving GPS Data
+A device driver is written in python to parse the string obtained from the GPS puck in the $GPGGA format. This project involved the collection of data using a GlobalSat BU-353-S4 GPS Puck, and the analysis of the data collected. Data was collected when the GPS was stationary and moving in an open space. The two sets of data were compared, analysed and inferences were drawn.
 
 ## Project 2 : Analysis of RTK GPS Data
+This project involves modifying the code for a driver to handle the NMEA string ‘GNGGA’ instead of ‘GPGGA’ and adding the GNSS fix quality (rtk float or rtk fix) for analysis. The hardware and sensors used include two GNSS/ RTK processing boards, two GNSS antennas, and two 915 MHz telemetry radios. The analysis of a 10-minute stationary dataset and a moving rover dataset collected in a structured path, followed by two additional datasets in a location with partial occlusion and reflections nearby is done. Additionally, the analysis involves examining the UTM data for each dataset and analyzing the error estimates and distribution of noise in the signal. 
 
 ## Project 3 : Analysis of IMU Data
+The project involves the characterization and selection of IMU sensors for various robotic applications. A device driver is written for the Vectornav VN-100 IMU to communicate with it over USB serial, and its parameters and sources of error are identified through Allan variance data analysis. Sources of noise in IMU and magnetometer measurements are also identified and discussed. The Ubuntu USB latency issues are addressed by modifying the values in the /etc/udev/rules.d/50-VN-100.rules and /etc/udev/rules.d/49-USB-LATENCY.rules files. A custom message file called “imu_msg.msg” is created to publish data using the ROS sensor_msgs/Imu and sensor_msgs/MagneticField. Finally, a rosbag is begun to collect at least 5 minutes of data with the IMU stationary and far away from moving objects, and Allan variance data analysis is performed on a 5-hour stationary IMU data set.
 
 ## Project 4 : Navigation with IMU and Magnetometer - Dead Reckoning
 
 ***Removed***
 
 ## Project 5 : Camera Mosaic - Camera Calibration and Image Stitching
-
+To generate a panorama or Mosaic of images, we need to “stitch” the images with the help of overlapping features between images. The first step to achieving this goal is to calibrate the phone camera so that any distortions in the images are removed. This is to essentially remove any radial or tangential distortions present in the image. The phone already does a pretty good job of undistorting the image, but based on the camera intrinsic, the image can be calibrated even better to get a perfect image stitch. After the calibration, images are taken with significant overlap, so that major features are detected using the Harris Detector. The images are preprocessed with the calibration data obtained and converted to a greyscale image as input for the Harris detector. The images are then stitched with overlapping Harris corners so that features are matched between successive images. Finally, the transformations obtained from this series of stitched images are applied to the original images to form the final panorama.
